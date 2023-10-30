@@ -1,0 +1,38 @@
+<h1>Players</h1>
+
+{% if players %}
+<ul>
+  {% for player in players %}
+  <li><strong>{{ player.name }}</strong>; rating: <strong>1000</strong></li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>No players, sad times.</p>
+{% endif %}
+
+<h1>Pairs</h1>
+
+{% if pairs %}
+<ul>
+  {% for pair in pairs %}
+  <li>
+    {{ pair.player1 }} ({{ pair.player1_wins }}) - {{ pair.player2 }}
+    ({{pair.player2_wins }})
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>No players, sad times.</p>
+{% endif %}
+
+<h1>Frames</h1>
+
+{% if frames %}
+<ul>
+  {% for frame in frames %}
+  <li>{{ frame }}</li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>No players, sad times.</p>
+{% endif %}
