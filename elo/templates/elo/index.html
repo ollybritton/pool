@@ -1,14 +1,4 @@
-<h1>Players</h1>
-
-{% if players %}
-<ul>
-  {% for player in players %}
-  <li><strong>{{ player.name }}</strong>; rating: <strong>1000</strong></li>
-  {% endfor %}
-</ul>
-{% else %}
-<p>No players, sad times.</p>
-{% endif %}
+{% extends "elo/base.html" %} {% block content %}
 
 <h1>Pairs</h1>
 
@@ -16,9 +6,30 @@
 <ul>
   {% for pair in pairs %}
   <li>
-    {{ pair.player1 }} ({{ pair.player1_wins }}) - {{ pair.player2 }}
+    {{ pair.player1.name }} ({{ pair.player1_wins }}) - {{ pair.player2.name }}
     ({{pair.player2_wins }})
+    <ul>
+      <li>Suggested next to break: {{pair.suggested_break.name}}</li>
+      <li>
+        <a
+          href="{% url 'elo:add' %}?winning_player_id={{pair.player1.id}}&losing_player_id={{pair.player2.id}}&breaking_player_id={{pair.suggested_break.id}}"
+          >Add game with these players</a
+        >
+      </li>
+    </ul>
   </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>No players, sad times.</p>
+{% endif %}
+
+<h1>Players</h1>
+
+{% if players %}
+<ul>
+  {% for player in players %}
+  <li><strong>{{ player.name }}</strong></li>
   {% endfor %}
 </ul>
 {% else %}
@@ -35,4 +46,4 @@
 </ul>
 {% else %}
 <p>No players, sad times.</p>
-{% endif %}
+{% endif %} {% endblock %}

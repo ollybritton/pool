@@ -1,0 +1,10 @@
+{% extends "elo/base.html" %} {% block content %}
+<form action="{% url 'elo:add' %}" method="post">
+    <p>
+        There's currently no verification of any kind, so please be honest!
+    </p>
+    {% csrf_token %} {{ form }}
+    <input type="submit" value="Submit" />
+  </form>
+  {% endblock %}
+</h1>

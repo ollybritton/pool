@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width" />
+    <title>{% block title %}ChCh Pool{% endblock %}</title>
+    <link rel="stylesheet" href="https://unpkg.com/mvp.css" />
+  </head>
+
+  <body>
+    <nav style="padding: 1em">
+      <a href="{% url 'elo:index' %}"><h1>ChCh Pool</h1></a>
+
+      <a href="{% url 'elo:add' %}">Add game</a>
+    </nav>
+
+    <div id="content" style="padding: 1em">
+      {% block content %}{% endblock %}
+    </div>
+  </body>
+</html>

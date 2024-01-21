@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 from django.db.models import Q
 
 class Player(models.Model):
@@ -8,9 +9,18 @@ class Player(models.Model):
         return self.name
 
 class Frame(models.Model):
-    winning_player = models.ForeignKey(Player, related_name="frames_won", on_delete=models.CASCADE) # TODO: how to deal with matches between multiple people? maybe don't?
+    winning_player = models.ForeignKey(Player, related_name="frames_won", on_delete=models.CASCADE) 
     losing_player = models.ForeignKey(Player, related_name="frames_lost", on_delete=models.CASCADE)
-    date = models.DateField()
+    breaking_player = models.ForeignKey(Player, related_name="frames_broken", on_delete=models.CASCADE)
+
+    date = models.DateTimeField()
+
+    def clean(self):
+        if self.breaking_player not in [self.winning_player, self.losing_player]:
+            raise ValidationError("breaking player must either be winning player or the losing player")
+        
+        if self.winning_player == self.losing_player:
+            raise ValidationError("players cannot play with themselves")
 
     def __str__(self):
         if self.winning_player.name < self.losing_player.name:
